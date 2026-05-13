@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="lv">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Autoostas pārvaldība | Autoostas informācijas sistēma</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html#search">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" role="img">
+            <path d="M7 6h18a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-1.2a3.2 3.2 0 0 1-6.2 0h-7.2a3.2 3.2 0 0 1-6.2 0H3V10a4 4 0 0 1 4-4Zm1 4v6h8V10H8Zm10 0v6h6v-5a1 1 0 0 0-1-1h-5ZM7.3 24.8a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6Zm13.4 0a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6Z"></path>
+          </svg>
+        </span>
+        <span>
+          <strong>Autoosta</strong>
+          <small>pārvaldības panelis</small>
+        </span>
+      </a>
+
+      <section class="userbar" aria-label="Autoostas vadītāja panelis">
+        <button class="profile-chip" type="button" disabled>
+          <span id="managerFullName">Lietotājs</span>
+          <span class="driver-badge station-badge">Autoostas vadītājs</span>
+        </button>
+        <a class="ghost-btn compact" href="index.html#driverPanel">Atpakaļ</a>
+      </section>
+    </header>
+
+    <main class="manager-page-main">
+      <section class="page-header">
+        <p class="eyebrow">Autoostas vadība</p>
+        <h1>Pārvaldīt autoostu</h1>
+        <p>Skati kontus, maršrutus, bilances iemaksas, pirktās biļetes un ātrus finanšu pārskatus.</p>
+      </section>
+
+      <section class="panel route-guard is-hidden" id="managerGuard"></section>
+
+      <section id="managerDashboard" class="manager-dashboard is-hidden">
+        <section class="metric-grid" id="metricGrid"></section>
+
+        <section class="panel report-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Pārskata pogas</p>
+              <h2>Ātrā analīze</h2>
+            </div>
+          </div>
+          <div class="report-actions">
+            <button class="ghost-btn" type="button" data-report="top-spender">Visvairāk iztērēts</button>
+            <button class="ghost-btn" type="button" data-report="best-route">Visizdevīgākais brauciens</button>
+            <button class="ghost-btn" type="button" data-report="popular-route">Populārākais maršruts</button>
+            <button class="ghost-btn" type="button" data-report="largest-topup">Lielākā iemaksa</button>
+            <button class="ghost-btn" type="button" data-report="total-income">Kopējie ienākumi</button>
+          </div>
+          <div class="report-result" id="reportResult">Izvēlies pārskata pogu.</div>
+        </section>
+
+        <section class="manager-sections">
+          <article class="panel data-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Konti</p>
+                <h2>Visi lietotāji</h2>
+              </div>
+            </div>
+            <div class="data-table-wrap" id="usersTable"></div>
+          </article>
+
+          <article class="panel data-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Maršruti</p>
+                <h2>Visi maršruti</h2>
+              </div>
+            </div>
+            <div class="data-table-wrap" id="routesTable"></div>
+          </article>
+
+          <article class="panel data-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Nauda</p>
+                <h2>Bilances iemaksas</h2>
+              </div>
+            </div>
+            <div class="data-table-wrap" id="topUpsTable"></div>
+          </article>
+
+          <article class="panel data-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Biļetes</p>
+                <h2>Pirktās biļetes</h2>
+              </div>
+            </div>
+            <div class="data-table-wrap" id="ticketsTable"></div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="manager.js"></script>
+  </body>
+</html>

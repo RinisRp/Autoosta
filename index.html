@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="lv">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Autoostas informācijas sistēma</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#search">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" role="img">
+            <path d="M7 6h18a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-1.2a3.2 3.2 0 0 1-6.2 0h-7.2a3.2 3.2 0 0 1-6.2 0H3V10a4 4 0 0 1 4-4Zm1 4v6h8V10H8Zm10 0v6h6v-5a1 1 0 0 0-1-1h-5ZM7.3 24.8a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6Zm13.4 0a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6Z"></path>
+          </svg>
+        </span>
+        <span>
+          <strong>Autoosta</strong>
+          <small>informācijas sistēma</small>
+        </span>
+      </a>
+
+      <nav class="guest-actions" id="guestActions" aria-label="Konta darbības">
+        <button class="ghost-btn" id="openLoginBtn" type="button">Pieteikties</button>
+        <button class="primary-btn" id="openRegisterBtn" type="button">Izveidot kontu</button>
+      </nav>
+
+      <section class="userbar is-hidden" id="userBar" aria-label="Lietotāja panelis">
+        <button class="profile-chip" id="profileBtn" type="button">
+          <span id="userFullName">Lietotājs</span>
+          <span class="driver-badge is-hidden" id="driverBadge">Autobusa vadītājs</span>
+          <span class="driver-badge station-badge is-hidden" id="stationBadge">Autoostas vadītājs</span>
+        </button>
+        <a class="primary-btn compact is-hidden" id="manageStationBtn" href="manager.html">Pārvaldīt autoostu</a>
+        <button class="balance-chip" id="balanceBtn" type="button">Bilance: <span id="balanceValue">0.00 EUR</span></button>
+        <button class="ghost-btn compact" id="logoutBtn" type="button">Iziet</button>
+      </section>
+    </header>
+
+    <main>
+      <section class="route-search" id="search">
+        <div class="search-copy">
+          <p class="eyebrow">Maršrutu meklēšana</p>
+          <h1>Atrodi autobusa reisu un iegādājies biļeti.</h1>
+        </div>
+
+        <form class="search-form" id="searchForm">
+          <label>
+            <span>No kurienes brauksi?</span>
+            <input id="fromInput" name="from" type="text" placeholder="Piemēram, Rīga" autocomplete="address-level2">
+          </label>
+          <label>
+            <span>Uz kurieni?</span>
+            <input id="toInput" name="to" type="text" placeholder="Piemēram, Liepāja" autocomplete="address-level2">
+          </label>
+          <button class="primary-btn search-btn" type="submit">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M10.5 4a6.5 6.5 0 0 1 5.16 10.45l4.44 4.45-1.2 1.2-4.45-4.44A6.5 6.5 0 1 1 10.5 4Zm0 1.7a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 0 0 0-9.6Z"></path>
+            </svg>
+            Meklēt
+          </button>
+        </form>
+      </section>
+
+      <section class="content-grid">
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Pieejamie reisi</p>
+              <h2>Maršruti</h2>
+            </div>
+            <button class="ghost-btn compact" id="showAllRoutesBtn" type="button">Rādīt visus</button>
+          </div>
+          <div class="route-list" id="routeResults" aria-live="polite"></div>
+        </section>
+
+        <aside class="panel ticket-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Biļetes iegāde</p>
+              <h2>Izvēlētais reiss</h2>
+            </div>
+          </div>
+          <div id="selectedRouteBox" class="empty-state">Izvēlies reisu no saraksta, lai redzētu cenu un samaksātu.</div>
+          <div id="ticketResult" class="ticket-result is-hidden"></div>
+        </aside>
+      </section>
+
+      <section class="panel driver-panel is-hidden" id="driverPanel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Šofera zona</p>
+            <h2>Mani maršruti</h2>
+          </div>
+          <a class="primary-btn compact" href="route.html">Jauns maršruts</a>
+        </div>
+
+        <div class="driver-routes">
+          <div id="driverRoutesList" class="route-list compact-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="loginDialog" class="modal">
+      <form method="dialog" class="modal-shell" id="loginForm">
+        <button class="modal-close" value="cancel" aria-label="Aizvērt" type="button" data-close-dialog>×</button>
+        <p class="eyebrow">Pieteikšanās</p>
+        <h2>Ieej savā kontā</h2>
+        <div class="form-error" id="loginError" aria-live="polite"></div>
+        <label>
+          <span>Konta nosaukums</span>
+          <input id="loginUsername" type="text" autocomplete="username" required>
+        </label>
+        <label>
+          <span>Parole</span>
+          <input id="loginPassword" type="password" autocomplete="current-password" required>
+        </label>
+        <label class="check-row">
+          <input id="showLoginPassword" type="checkbox">
+          <span>Parādīt paroli</span>
+        </label>
+        <button class="primary-btn" type="submit">Pieteikties</button>
+      </form>
+    </dialog>
+
+    <dialog id="registerDialog" class="modal">
+      <form method="dialog" class="modal-shell" id="registerForm">
+        <button class="modal-close" value="cancel" aria-label="Aizvērt" type="button" data-close-dialog>×</button>
+        <p class="eyebrow">Jauns konts</p>
+        <h2>Izveido kontu</h2>
+        <div class="form-error" id="registerError" aria-live="polite"></div>
+        <div class="form-row two">
+          <label>
+            <span>Vārds</span>
+            <input id="registerFirstName" type="text" autocomplete="given-name" required>
+          </label>
+          <label>
+            <span>Uzvārds</span>
+            <input id="registerLastName" type="text" autocomplete="family-name" required>
+          </label>
+        </div>
+        <div class="form-row two">
+          <label>
+            <span>Vecums</span>
+            <input id="registerAge" type="number" min="1" max="120" required>
+          </label>
+          <label>
+            <span>Konta nosaukums</span>
+            <input id="registerUsername" type="text" autocomplete="username" required>
+          </label>
+        </div>
+        <label>
+          <span>Parole</span>
+          <input id="registerPassword" type="password" autocomplete="new-password" minlength="8" required>
+          <small class="field-hint">Vismaz 8 simboli, 1 cipars, 1 speciālais simbols un 1 lielais burts.</small>
+        </label>
+        <label>
+          <span>Parole vēlreiz</span>
+          <input id="registerPasswordRepeat" type="password" autocomplete="new-password" minlength="8" required>
+        </label>
+        <button class="primary-btn" type="submit">Izveidot kontu</button>
+      </form>
+    </dialog>
+
+    <dialog id="balanceDialog" class="modal">
+      <div class="modal-shell">
+        <button class="modal-close" aria-label="Aizvērt" type="button" data-close-dialog>×</button>
+        <p class="eyebrow">Bilance</p>
+        <h2>Konta bilance</h2>
+        <div class="balance-amount" id="balanceDialogAmount">0.00 EUR</div>
+        <div class="topup-box">
+          <label>
+            <span>Papildināt bilanci</span>
+            <input id="topUpAmount" type="number" min="0.01" max="200" step="0.01" placeholder="Piemēram, 20.00">
+          </label>
+          <button class="primary-btn" id="topUpBtn" type="button">Papildināt bilansi</button>
+        </div>
+        <h3>Iepriekšējās izmaksas</h3>
+        <div class="expense-list" id="expensesList"></div>
+      </div>
+    </dialog>
+
+    <dialog id="profileDialog" class="modal">
+      <div class="modal-shell">
+        <button class="modal-close" aria-label="Aizvērt" type="button" data-close-dialog>×</button>
+        <p class="eyebrow">Profils</p>
+        <h2 id="profileTitle">Lietotājs</h2>
+        <div id="profileDetails" class="profile-details"></div>
+        <button class="primary-btn" id="applyDriverBtn" type="button">Pieteikties par šoferi</button>
+        <button class="primary-btn is-hidden" id="becomeStationManagerBtn" type="button">Kļūt par Autoostas vadītāju</button>
+      </div>
+    </dialog>
+
+    <dialog id="driverApplicationDialog" class="modal">
+      <form method="dialog" class="modal-shell" id="driverApplicationForm">
+        <button class="modal-close" value="cancel" aria-label="Aizvērt" type="button" data-close-dialog>×</button>
+        <p class="eyebrow">Šofera pieteikums</p>
+        <h2>Pieteikties par šoferi</h2>
+        <div class="form-error" id="driverApplicationError" aria-live="polite"></div>
+        <label>
+          <span>Vadītāja apliecības numurs</span>
+          <input id="licenseNumber" type="text" required>
+        </label>
+        <label>
+          <span>Cik gadus vadi autobusu vai līdzīgu transportu?</span>
+          <input id="experienceYears" type="number" min="0" max="70" required>
+        </label>
+        <label>
+          <span>Kāpēc vēlies kļūt par autoostas šoferi?</span>
+          <textarea id="driverMotivation" rows="4" required></textarea>
+        </label>
+        <button class="primary-btn" type="submit">Nosūtīt pieteikumu</button>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
