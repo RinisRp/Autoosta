@@ -2,6 +2,8 @@
 
 Šis wireframe apraksta galvenos lietotāja saskarnes skatus pēc ķīmijas sistēmas parauga. Tas nav gala dizains, bet ekrānu izvietojuma plāns.
 
+Vizuālā shēmas versija, kas veidota līdzīgi parauga PDF failam, atrodas failos `docs/Autoostas_vizualais_wireframe.pdf` un `docs/Autoostas_vizualais_wireframe.png`.
+
 ## 1. Sākumlapa
 
 ```text

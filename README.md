@@ -41,6 +41,7 @@ python -m unittest discover -s tests -v
 - Projekta dokumentācija: `docs/projekta-dokumentacija.md`
 - Sistēmas apraksts pēc parauga: `docs/autoostas-sistemas-apraksts.md`
 - Wireframe: `docs/lietotaja-interfeisa-wireframe.md`
+- Vizuālais wireframe pēc parauga: `docs/Autoostas_vizualais_wireframe.pdf` un `docs/Autoostas_vizualais_wireframe.png`
 - Testu plāns: `docs/testu-plans.md`
 - Sistēmas modelis: `docs/sistemas-modelis.md`
 - Datu vārdnīca: `docs/datu-vardnica.md`
